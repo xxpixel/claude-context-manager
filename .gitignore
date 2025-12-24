@@ -1,0 +1,57 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Editor
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+npm-debug.log*
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Temporary files
+*.tmp
+*.temp
+
+# User-specific files
+.env
+.env.local
+
+# Test outputs
+coverage/
+test-results/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Node modules (if ever needed)
+node_modules/
+
+# User conversations (should not be committed)
+# These are user-specific data that should stay local
+# conversations/*.md
+# !conversations/index.json
