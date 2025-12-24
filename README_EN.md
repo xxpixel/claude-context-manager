@@ -1,75 +1,82 @@
-<div align="center">
+**English** | [中文](./README.md)
 
-# 🧠 Claude Context Manager
+## Claude Context Manager
 
-**Session Context Management Tool for Claude Code**
+**🧠 Session Context Management Tool for Claude Code | Save, Restore & Search Your AI Coding Sessions**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-blue.svg)]()
+[![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Linux%20%7C%20Windows-blue.svg)]()
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-green.svg)]()
+[![GitHub Stars](https://img.shields.io/github/stars/gaoziman/claude-context-manager)](https://github.com/gaoziman/claude-context-manager/stargazers)
 
-English | [简体中文](./README.md)
-
-</div>
+Claude Context Manager enables you to save Claude Code session contexts anytime through custom slash commands, quickly restore previous work states in new sessions, and completely solve the pain of losing context due to API errors.
 
 ---
 
-## 🎯 What is this?
+## ✨ Highlights
 
-**Claude Context Manager** is a session context management tool designed for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) users. It helps you:
+- 💾 **One-Click Save**: `/save-context` intelligently extracts key information including requirements, decisions, code, and progress
+- 🔄 **Quick Restore**: `/load-context` loads historical context in new sessions, Claude immediately understands project background
+- 📋 **Session Management**: `/list-contexts` view all saved sessions with timestamps accurate to seconds
+- 🔍 **Full-Text Search**: `/search-context` search historical sessions by title, tags, or content
+- 🧠 **Smart Detection**: Automatically identifies session types (analysis/development/debug/config) with corresponding extraction strategies
+- 🏷️ **Auto Tagging**: Automatically generates tags based on tech stack, task type, etc.
+- ✅ **Quality Check**: Built-in 8-point quality checklist ensures context completeness and recoverability
 
-- 💾 **Save** the complete context of your current session
-- 📂 **Manage** all saved historical sessions
-- 🔄 **Restore** previous work states in new sessions
-- 🔍 **Search** historical sessions to quickly find relevant content
+## 😫 What Problems Does It Solve?
 
-## 😫 What Problem Does It Solve?
+When using Claude Code, have you ever encountered:
 
-Have you ever encountered these issues while using Claude Code?
+| Pain Point | Description |
+|------------|-------------|
+| 😱 **API Errors** | Forced to open a new window due to 400/500 errors |
+| 💔 **Context Loss** | Hard-earned conversation context disappears instantly |
+| 🔄 **Repeated Explanations** | Need to re-explain project background in new sessions |
+| 📉 **Reduced Efficiency** | Continuity of complex tasks is broken |
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│  😱 API errors (like 400 parameter errors) force you to open   │
-│     a new window                                                │
-│                                                                 │
-│  💔 Hard-earned conversation context lost instantly             │
-│                                                                 │
-│  🔄 Need to re-explain project background and technical         │
-│     decisions in new sessions                                   │
-│                                                                 │
-│  📉 Continuity of complex tasks broken, efficiency drops        │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+**Claude Context Manager was born to solve these problems!**
 
-**Claude Context Manager** was born to solve these problems!
+## ⚡️ Quick Start
 
-## ✨ Key Features
+### Requirements
 
-| Feature | Description |
-|---------|-------------|
-| 🧠 **Smart Extraction** | Auto-detects session types (analysis/development/debug/config) and applies corresponding strategies |
-| 🏷️ **Intelligent Tagging** | Auto-generates tags based on tech stack, task type, project, etc. |
-| ✅ **Quality Control** | Built-in 8-point quality checklist ensures context completeness |
-| ⏱️ **Precise Timestamps** | Timestamps accurate to seconds for easy timeline tracking |
-| 🔍 **Full-text Search** | Supports searching titles, tags, and content |
-| 📊 **Structured Storage** | Markdown + YAML frontmatter, human-readable |
+- Claude Code installed and working properly
+- macOS / Linux / Windows operating system
 
-## 🚀 Quick Start
-
-### Installation
+### macOS / Linux
 
 ```bash
-# 1. Clone the repository
+# Clone the repository
 git clone https://github.com/gaoziman/claude-context-manager.git
-
-# 2. Enter directory
 cd claude-context-manager
 
-# 3. Run installation script
+# Run installation script
 chmod +x install.sh
 ./install.sh
+```
+
+### Windows
+
+**PowerShell (Recommended)**
+
+```powershell
+# Clone the repository
+git clone https://github.com/gaoziman/claude-context-manager.git
+cd claude-context-manager
+
+# Set execution policy (if needed)
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# Run installation script
+.\scripts\windows\install.ps1
+```
+
+**Batch Script (Better Compatibility)**
+
+```cmd
+git clone https://github.com/gaoziman/claude-context-manager.git
+cd claude-context-manager
+scripts\windows\install.bat
 ```
 
 ### Verify Installation
@@ -79,127 +86,125 @@ After restarting Claude Code, type `/` to see if these commands appear:
 ```
 /save-context     - Save session context
 /load-context     - Load session context
-/list-contexts    - List saved contexts
-/search-context   - Search contexts
+/list-contexts    - List saved sessions
+/search-context   - Search session contexts
 ```
 
-## 📖 Usage Guide
+## 📖 Usage
 
-### 1️⃣ Save Context
+### Save Context
 
-When you complete an important work phase, run:
-
-```
+```bash
+# Auto-generate title
 /save-context
-```
 
-Or specify a title:
-
-```
+# Specify title
 /save-context User Authentication Development
 ```
 
-The system will automatically:
-- Analyze current session content
-- Extract key information (decisions, code, progress, etc.)
-- Generate a structured context file
-- Update the index for future retrieval
+### List Sessions
 
-### 2️⃣ List All Sessions
-
-```
+```bash
 /list-contexts
 ```
 
-Example output:
+Output example:
 
 ```
 📚 Saved Sessions (3 total)
 
-| No.  | Date Time           | Title                    | Project      | Tags           |
-|------|---------------------|--------------------------|--------------|----------------|
-| [1]  | 2025-12-24 14:30:25 | User Auth Development    | my-project   | #auth #JWT     |
-| [2]  | 2025-12-24 10:15:08 | Architecture Analysis    | my-project   | #arch #analysis|
-| [3]  | 2025-12-23 16:45:30 | Bug Fix Record           | my-project   | #bug #fix      |
+| No.  | Date Time             | Title                    | Project     | Tags           |
+|------|-----------------------|--------------------------|-------------|----------------|
+| [1]  | 2025-12-24 16:30:45  | User Auth Development    | my-project  | #auth #JWT     |
+| [2]  | 2025-12-24 14:15:22  | API Interface Design     | my-project  | #api #design   |
+| [3]  | 2025-12-24 10:08:33  | Database Architecture    | my-project  | #db #analysis  |
 ```
 
-### 3️⃣ Load Context
+### Load Context
 
-```
+```bash
+# Load by number
 /load-context 1
-```
 
-Or use keywords:
-
-```
+# Load by keyword
 /load-context auth
 ```
 
-After loading, Claude will display the complete context and provide intelligent suggestions for what you can continue doing.
+### Search Context
 
-### 4️⃣ Search Contexts
-
-```
+```bash
+# Search keywords
 /search-context JWT
+
+# Search tags
+/search-context #authentication
 ```
 
-Supports searching:
-- Titles
-- Tags (use `#tag` format)
-- Summary content
+## 🏗️ Architecture
 
-## 📁 File Structure
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     Installation Flow                            │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   📦 Project Repository              🏠 User Directory           │
+│   claude-context-manager/            ~/.claude/                  │
+│                                                                 │
+│   .claude/commands/*.md    ════════►  commands/*.md             │
+│   .claude/skills/          ════════►  skills/context-manager/   │
+│   .claude/conversations/   ════════►  conversations/            │
+│                                                                 │
+│              install.sh automatically copies to user directory   │
+│              Globally available after installation               │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-After installation, the following structure is created under `~/.claude/`:
+| Platform | Config Directory |
+|----------|------------------|
+| macOS | `~/.claude/` → `/Users/username/.claude/` |
+| Linux | `~/.claude/` → `/home/username/.claude/` |
+| Windows | `%USERPROFILE%\.claude\` → `C:\Users\username\.claude\` |
+
+## 📁 Project Structure
+
+```
+claude-context-manager/
+├── install.sh              # macOS/Linux installation script
+├── uninstall.sh            # macOS/Linux uninstallation script
+├── scripts/
+│   ├── mac/                # macOS/Linux scripts
+│   │   ├── install.sh
+│   │   └── uninstall.sh
+│   └── windows/            # Windows scripts
+│       ├── install.ps1     # PowerShell install
+│       ├── uninstall.ps1   # PowerShell uninstall
+│       ├── install.bat     # Batch install
+│       └── uninstall.bat   # Batch uninstall
+├── .claude/
+│   ├── commands/           # Slash command definitions
+│   ├── skills/             # Skill definitions
+│   └── conversations/      # Session templates
+├── docs/                   # Documentation
+└── examples/               # Example files
+```
+
+## ⚙️ Configuration
+
+Installed file structure:
 
 ```
 ~/.claude/
-├── commands/                      # Command files
+├── commands/                      # Slash commands (globally available)
 │   ├── save-context.md
 │   ├── load-context.md
 │   ├── list-contexts.md
 │   └── search-context.md
-├── skills/
-│   └── context-manager/
-│       └── SKILL.md              # Skill definition
-└── conversations/                # Session storage
+├── skills/context-manager/
+│   └── SKILL.md                  # Skill definition
+└── conversations/                 # Session storage
     ├── index.json                # Index file
-    └── *.md                      # Session files
-```
-
-## 🎨 Session File Format
-
-Each saved session is a Markdown file:
-
-```markdown
----
-id: "uuid"
-title: "Session Title"
-project: "Project Name"
-created_at: "2025-12-24T14:30:25+08:00"
-tags: ["tag1", "tag2"]
-summary: "One-line summary"
----
-
-# Session Context: [Title]
-
-## 📋 Session Overview
-...
-
-## 🎯 User Requirements
-...
-
-## 📊 Core Content
-...
-
-## 💡 Key Decisions
-...
-
-## ✅ Task Progress
-...
-
-## 🚀 Next Steps Guide
-...
+    └── *.md                      # Saved sessions
 ```
 
 ## 💡 Best Practices
@@ -210,91 +215,83 @@ summary: "One-line summary"
 |----------|----------------|
 | ✅ Completed feature development | Save immediately |
 | ✅ Completed architecture analysis | Save immediately |
-| ✅ Fixed complex bug | Save immediately |
-| ✅ Saw "Conversation compacted" | Save immediately! |
+| ✅ Solved complex bug | Save immediately |
+| ✅ See "Conversation compacted" | **Save immediately!** |
 | ❌ Simple Q&A | No need to save |
 
-### Incremental Saving
+### Recommended Workflow
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    Recommended Workflow                          │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   Phase 1: Complete Architecture Analysis                       │
-│      │                                                          │
-│      ▼                                                          │
-│   /save-context Architecture  ← Save now!                       │
-│      │                                                          │
-│      ▼                                                          │
-│   Phase 2: Start Feature Development                            │
-│      │                                                          │
-│      ▼                                                          │
-│   /save-context Feature Dev   ← Save again!                     │
-│      │                                                          │
-│      ▼                                                          │
-│   Phase 3: Bug Fixes                                            │
-│      │                                                          │
-│      ▼                                                          │
-│   /save-context Bug Fixes     ← Keep saving!                    │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+Phase 1: Requirements Analysis → /save-context Requirements
+    ↓
+Phase 2: Architecture Design → /save-context Architecture
+    ↓
+Phase 3: Feature Development → /save-context Development
+    ↓
+Phase 4: Testing & Fixes → /save-context Testing Complete
 ```
 
-## ⚠️ Important Notes
+## ❓ FAQ
 
-### Context Window Limitations
+**1. Commands not showing after installation?**
+> You must **completely restart** Claude Code, not just minimize and reopen.
 
-Claude has context window limitations. When conversations get too long, early content gets compressed:
+**2. Windows shows execution policy restriction?**
+> Run `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
 
-- **Short conversations**: Can save complete content ✅
-- **Long conversations**: Can only save recent content + compressed summary ⚠️
+**3. ~/.claude directory doesn't exist?**
+> Run `claude` command once first, or manually create with `mkdir -p ~/.claude`
 
-**Recommendation**: Save immediately after completing important phases. Don't wait until the conversation is too long!
+**4. Saved content is incomplete?**
+> Claude has context window limitations, early content in long conversations gets compressed. Tip: **Save immediately after completing important phases**.
 
-## 🛠️ Uninstallation
+**5. Can I delete the project directory after installation?**
+> Yes, but it's recommended to keep it for future upgrades.
 
-If you need to uninstall, run:
+## 🛠️ Uninstall
+
+**macOS / Linux**
 
 ```bash
 ./uninstall.sh
 ```
 
-The script will:
-1. Ask if you want to backup saved sessions
-2. Remove command and skill files
-3. Optionally preserve session data
+**Windows**
+
+```powershell
+.\scripts\windows\uninstall.ps1
+# or
+scripts\windows\uninstall.bat
+```
+
+The uninstall script will ask if you want to backup saved session data.
 
 ## 🤝 Contributing
 
-Contributions, bug reports, and suggestions are welcome!
+Issues and Pull Requests are welcome!
 
 1. Fork this repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Submit a Pull Request
 
-## 📝 Changelog
+## 📚 Documentation
 
-See [CHANGELOG.md](./CHANGELOG.md) for version history.
+- [Getting Started Guide](./docs/getting-started.md)
+- [Installation Guide](./docs/installation.md)
+- [Usage Guide](./docs/usage.md)
+- [Configuration](./docs/configuration.md)
+- [Best Practices](./docs/best-practices.md)
+- [FAQ](./docs/faq.md)
 
-## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+## 📜 License
 
-## 🙏 Acknowledgments
-
-- [Anthropic](https://www.anthropic.com/) - Claude AI
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) - CLI Tool
-- All contributors and users
+This project is licensed under the [MIT License](./LICENSE).
 
 ---
-
-<div align="center">
 
 **If this project helps you, please give it a ⭐️ Star!**
 
 Made with ❤️ by [Leo Coder](https://github.com/gaoziman)
-
-</div>
