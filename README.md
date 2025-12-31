@@ -19,6 +19,8 @@ Claude Context Manager 通过自定义斜杠命令，让你能够随时保存 Cl
 - 🔄 **快速恢复**：`/load-context` 在新会话中加载历史上下文，Claude 立即理解项目背景
 - 📋 **会话管理**：`/list-contexts` 查看所有保存的会话，支持时间戳精确到秒
 - 🔍 **全文搜索**：`/search-context` 按标题、标签、内容搜索历史会话
+- 🆘 **紧急恢复**：`/recover-context` 从 Claude Code 自动保存的 JSONL 文件恢复上下文（400 错误后救命功能！）
+- 🤖 **自动保存**：Stop Hook 自动保存功能，任务停止时自动保存会话上下文（可选安装）
 - 🧠 **智能识别**：自动识别会话类型（分析/开发/调试/配置），采用对应提取策略
 - 🏷️ **自动标签**：根据内容自动生成技术栈、任务类型等标签
 - ✅ **质量检查**：内置 8 项质量检查清单，确保上下文完整可恢复
@@ -88,6 +90,7 @@ scripts\windows\install.bat
 /load-context     - 加载会话上下文
 /list-contexts    - 列出保存的会话
 /search-context   - 搜索会话上下文
+/recover-context  - 从 JSONL 恢复上下文（400 错误后使用）
 ```
 
 ## 📖 使用指南 Usage
@@ -140,6 +143,18 @@ scripts\windows\install.bat
 /search-context #authentication
 ```
 
+### 紧急恢复（400 错误后）
+
+当遇到 400 错误导致窗口不可用时，在新窗口中使用：
+
+```bash
+# 查看可恢复的会话
+/recover-context
+
+# 恢复最近的会话
+/recover-context latest
+```
+
 ## 🏗️ 安装原理 Architecture
 
 ```
@@ -176,11 +191,17 @@ claude-context-manager/
 │   ├── mac/                # macOS/Linux 脚本
 │   │   ├── install.sh
 │   │   └── uninstall.sh
-│   └── windows/            # Windows 脚本
-│       ├── install.ps1     # PowerShell 安装
-│       ├── uninstall.ps1   # PowerShell 卸载
-│       ├── install.bat     # 批处理安装
-│       └── uninstall.bat   # 批处理卸载
+│   ├── windows/            # Windows 脚本
+│   │   ├── install.ps1     # PowerShell 安装
+│   │   ├── uninstall.ps1   # PowerShell 卸载
+│   │   ├── install.bat     # 批处理安装
+│   │   └── uninstall.bat   # 批处理卸载
+│   ├── hooks/              # Hooks 脚本
+│   │   ├── auto-save-context.py      # Stop Hook 自动保存脚本
+│   │   ├── periodic-save-context.py  # PostToolUse Hook 周期保存脚本
+│   │   ├── install-hooks.sh          # Hooks 安装脚本
+│   │   └── uninstall-hooks.sh        # Hooks 卸载脚本
+│   └── session-indexer.py  # 会话索引器（支持 /recover-context）
 ├── .claude/
 │   ├── commands/           # 斜杠命令定义
 │   ├── skills/             # 技能定义
@@ -199,13 +220,38 @@ claude-context-manager/
 │   ├── save-context.md
 │   ├── load-context.md
 │   ├── list-contexts.md
-│   └── search-context.md
+│   ├── search-context.md
+│   └── recover-context.md         # 紧急恢复命令
+├── scripts/                       # 脚本目录（Hooks 安装后）
+│   ├── auto-save-context.py       # Stop Hook 自动保存脚本
+│   ├── periodic-save-context.py   # PostToolUse Hook 周期保存脚本
+│   └── session-indexer.py         # 会话索引器
 ├── skills/context-manager/
 │   └── SKILL.md                  # 技能定义
 └── conversations/                 # 会话存储
     ├── index.json                # 索引文件
     └── *.md                      # 保存的会话
 ```
+
+### 安装自动保存功能（可选）
+
+如果你想启用 Stop Hook 自动保存功能：
+
+```bash
+# 进入项目目录
+cd claude-context-manager
+
+# 运行 Hooks 安装脚本（默认只安装 Stop Hook）
+./scripts/hooks/install-hooks.sh
+
+# 或安装所有 Hooks（包括 PostToolUse 周期保存）
+./scripts/hooks/install-hooks.sh --all
+```
+
+安装后的功能：
+- **Stop Hook**：当 Claude Code 任务停止时自动保存会话上下文
+- **PostToolUse Hook**（可选）：每 20 次工具调用或每 5 分钟自动保存
+- **会话索引器**：为 `/recover-context` 命令提供会话列表和搜索功能
 
 ## 💡 最佳实践 Best Practices
 
@@ -248,6 +294,9 @@ claude-context-manager/
 **5. 安装后项目目录可以删除吗？**
 > 可以，但建议保留用于升级。
 
+**6. 遇到 400 错误后如何恢复？**
+> 在新窗口中使用 `/recover-context` 命令，它会从 Claude Code 自动保存的 JSONL 文件中恢复上下文。
+
 ## 🛠️ 卸载 Uninstall
 
 **macOS / Linux**
@@ -284,6 +333,7 @@ scripts\windows\uninstall.bat
 - [配置说明](./docs/configuration.md)
 - [最佳实践](./docs/best-practices.md)
 - [常见问题](./docs/faq.md)
+- [自动保存 Hooks 配置](./docs/auto-save-hooks.md)
 
 ## 📜 许可证 License
 
