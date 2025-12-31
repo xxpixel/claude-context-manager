@@ -51,6 +51,11 @@ out/
 # Node modules (if ever needed)
 node_modules/
 
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
 # User conversations (should not be committed)
 # These are user-specific data that should stay local
 # conversations/*.md
