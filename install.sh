@@ -97,7 +97,7 @@ backup_existing() {
     # Check if commands directory exists with files
     if [ -d "$CLAUDE_DIR/commands" ] && [ "$(ls -A $CLAUDE_DIR/commands 2>/dev/null)" ]; then
         # Check for our specific command files
-        for cmd in save-context load-context list-contexts search-context; do
+        for cmd in save-context load-context list-contexts search-context recover-context; do
             if [ -f "$CLAUDE_DIR/commands/${cmd}.md" ]; then
                 needs_backup=true
                 break
@@ -119,7 +119,7 @@ backup_existing() {
 
             # Backup commands
             if [ -d "$CLAUDE_DIR/commands" ]; then
-                for cmd in save-context load-context list-contexts search-context; do
+                for cmd in save-context load-context list-contexts search-context recover-context; do
                     if [ -f "$CLAUDE_DIR/commands/${cmd}.md" ]; then
                         cp "$CLAUDE_DIR/commands/${cmd}.md" "$BACKUP_DIR/" 2>/dev/null || true
                     fi
@@ -168,6 +168,9 @@ install_files() {
     cp "$SCRIPT_DIR/.claude/commands/search-context.md" "$CLAUDE_DIR/commands/"
     print_success "  search-context.md"
 
+    cp "$SCRIPT_DIR/.claude/commands/recover-context.md" "$CLAUDE_DIR/commands/"
+    print_success "  recover-context.md"
+
     # Copy skill files
     echo "  Installing skills..."
     cp "$SCRIPT_DIR/.claude/skills/context-manager/SKILL.md" "$CLAUDE_DIR/skills/context-manager/"
@@ -195,7 +198,7 @@ verify_installation() {
     local all_good=true
 
     # Verify commands
-    for cmd in save-context load-context list-contexts search-context; do
+    for cmd in save-context load-context list-contexts search-context recover-context; do
         if [ -f "$CLAUDE_DIR/commands/${cmd}.md" ]; then
             print_success "$cmd.md"
         else
@@ -242,6 +245,7 @@ print_usage() {
     echo "  /list-contexts            List all saved contexts"
     echo "  /load-context [id]        Load a saved context"
     echo "  /search-context [keyword] Search saved contexts"
+    echo "  /recover-context          Recover context from JSONL files"
     echo ""
 
     echo -e "${CYAN}Quick Start:${NC}"
@@ -250,6 +254,12 @@ print_usage() {
     echo "  2. Work on your project as usual"
     echo "  3. Run /save-context to save your progress"
     echo "  4. In a new session, run /load-context to restore"
+    echo ""
+
+    echo -e "${CYAN}Enable Auto-Save (Optional):${NC}"
+    echo ""
+    echo "  To enable auto-save and /recover-context features:"
+    echo "  ./scripts/hooks/install-hooks.sh"
     echo ""
 
     echo -e "${CYAN}Documentation:${NC}"
